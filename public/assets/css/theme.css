@@ -333,6 +333,14 @@ section {
         -ms-flex-direction: column;
         flex-direction: column;
     }
+
+    .submit-mobie-custom {
+        display: block;
+    }
+
+    .submit-lap-custom {
+        display: none;
+    }
 }
 
 .login-form .form-group label {
@@ -1211,6 +1219,7 @@ section {
     .header-wrap .account-item > .content {
         display: none;
     }
+
 }
 
 @media (max-width: 991px) {
@@ -2975,6 +2984,14 @@ section {
 
 @media (max-width: 1315px) and (min-width: 992px) {
     .header4-wrap .header__tool .account-item > .content {
+        display: block;
+    }
+
+    .submit-mobie-custom{
+        display: none;
+    }
+
+    .submit-lap-custom{
         display: block;
     }
 }
@@ -14651,7 +14668,7 @@ section {
     .container-content-customize {
         margin-left: -10px;
     }
-    
+
 
     .full-name-col {
         margin-top: 1.5px;

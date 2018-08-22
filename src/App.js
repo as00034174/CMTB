@@ -1,21 +1,50 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Router, Route } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { alertAction } from './actions/alert.actions'
+import { history } from './helpers/history'
+import { LoginPage } from './LoginPage'
+import { HomePage } from './HomePage'
+import { PrivateRoute } from './PrivateRoute'
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    const { dispatch } = this.props;
+    history.listen((location, action) => {
+      dispatch(alertAction.clear());
+    });
+  }
   render() {
+    const { alert } = this.props;
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div className="jumbotron">
+        <div className="container">
+          <div className="col-sm-8 col-sm-offset-2">
+            {alert.message &&
+              <div className={`alert ${alert.type}`}>{alert.message}</div>
+            }
+            <Router history={history}>
+              <div>
+                <PrivateRoute exact path="/" component={HomePage} />
+                <Route path="/login" component={LoginPage} />
+                {/* <Route path="/register" component={RegisterPage} /> */}
+              </div>
+            </Router>
+          </div>
+        </div>
       </div>
     );
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+  const { alert } = state;
+  return {
+    alert
+  };
+}
+
+const connectedApp = connect(mapStateToProps)(App);
+export { connectedApp as App }; 
