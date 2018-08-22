@@ -1,6 +1,6 @@
 const { alertConstants } = require('../constants/alert.constants')
 
-export const alertAction = {
+export const alertActions = {
     success,
     error,
     clear

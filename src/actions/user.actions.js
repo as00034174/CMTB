@@ -1,4 +1,4 @@
-// import { request } from 'https';
+// const { request } = require('https');
 
 const { userConstants } = require('../constants/user.constants')
 const { userService } = require('../services/user.service')
@@ -22,11 +22,11 @@ function login(username, password) {
         .then(
             user => {
                 dispatch(success(user));
-                history.push('/');
+                history.push('/home');
             },
-            error => {
-                dispatch(failure(error.toString()));
-                dispatch(alertActions.error(error.toString()));
+            err => {
+                dispatch(failure(err.toString()));
+                dispatch(alertActions.error(err.toString()));
             }
         );
     };

@@ -1,7 +1,7 @@
 const { userConstants } = require("../constants/user.constants")
 
-export function registration (state ={}, action) {
-    switch(action.type) {
+export function registration(state = {}, action) {
+    switch (action.type) {
         case userConstants.REGISTER_REQUEST:
             return {
                 registering: true
@@ -12,9 +12,10 @@ export function registration (state ={}, action) {
             }
         case userConstants.REGISTER_FAILURE:
             return {
-                err: action.err
+                err: action.err,
+                registering: false
             }
-        default: 
+        default:
             return state;
     }
 }

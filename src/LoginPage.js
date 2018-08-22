@@ -1,7 +1,6 @@
 import React from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-
 import { userActions } from './actions/user.actions'
 
 class LoginPage extends React.Component {
@@ -12,7 +11,7 @@ class LoginPage extends React.Component {
 
         this.state = {
             username: '',
-            passsword: '',
+            password: '',
             submitted: false
         };
 
@@ -20,53 +19,57 @@ class LoginPage extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange() {
-        
+    handleChange(e) {
+        this.setState({ [e.target.name]: e.target.value })
     }
 
-    handleSubmit(){
+    handleSubmit() {
+        this.setState({submitted: true});
+        const { username, password } = this.state;
+        const { dispatch } = this.props;
 
+        if(username && password)
+            dispatch(userActions.login(username, password));
     }
     render() {
         const { loggingIn } = this.props;
-        const { username, passsword, submitted } = this.state
+        const { username, password, submitted } = this.state
         return (
-            <div class="page-content--bge5">
-                <div class="container">
-                    <div class="login-wrap">
-                        <div class="login-content">
-                            <div class="login-logo">authentication
+            <div className="page-content--bge5">
+                <div className="container">
+                    <div className="login-wrap">
+                        <div className="login-content">
+                            <div className="login-logo">authentication
                             <a href="#">
                                     <img src="../public/images/LogoCMTB.png" alt="CoolAdmin" />
                                 </a>
                             </div>
-                            <div class="login-form">
-                                <form action="" method="post">
-                                    <div class="form-group">
+                            <div className="login-form">
+                                    <div className="form-group">
                                         <label>Email Address</label>
-                                        <input class="au-input au-input--full" type="email" name="email" placeholder="Email" />
+                                        <input className="au-input au-input--full" type="email" name="username" value={username} onChange={this.handleChange} placeholder="Email" />
+                                        {submitted && !username && <div className="text-danger">User is required</div>}
                                     </div>
-                                    <div class="form-group">
+                                    <div className="form-group">
                                         <label>Password</label>
-                                        <input class="au-input au-input--full" type="password" name="password" placeholder="Password" />
+                                        <input className="au-input au-input--full" type="password" value={password} onChange={this.handleChange} name="password" placeholder="Password" />
                                     </div>
-                                    <div class="login-checkbox">
+                                    <div className="login-checkbox">
                                         <label>
-                                            <a href="#">Forgotten Password?</a>
+                                            <a href="#" className="text-info">Forgotten Password?</a>
                                         </label>
                                     </div>
-                                    <button class="au-btn au-btn--block au-btn--green m-b-20" type="submit">sign in</button>
-                                    <div class="social-login-content">
-                                        <div class="social-button">
-                                            <button class="au-btn au-btn--block au-btn--blue m-b-20">sign in with facebook</button>
-                                            <button class="au-btn au-btn--block au-btn--blue2">sign in with twitter</button>
+                                    <button className="au-btn au-btn--block au-btn--green m-b-20" onClick={this.handleSubmit} type="submit">sign in</button>
+                                    <div className="social-login-content">
+                                        <div className="social-button">
+                                            <button className="au-btn au-btn--block au-btn--blue m-b-20">sign in with facebook</button>
+                                            <button className="au-btn au-btn--block au-btn--blue2">sign in with twitter</button>
                                         </div>
                                     </div>
-                                </form>
-                                <div class="register-link">
+                                <div className="register-link">
                                     <p>
                                         Don't you have account?
-                                    <a href="./register.html">Sign Up Here</a>
+                                    <Link to="/register">Sign Up Here</Link>
                                     </p>
                                 </div>
                             </div>
@@ -82,5 +85,5 @@ function mapStateToProps(state) {
     return { loggingIn };
 }
 
-const connectedLoginPAge = connect(mapStateToProps)(LoginPage)
-export { connectedLoginPAge as LoginPage }
+const connectedLoginPage = connect(mapStateToProps)(LoginPage)
+export { connectedLoginPage as LoginPage }

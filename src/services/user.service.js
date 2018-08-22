@@ -8,16 +8,16 @@ export const userService = {
     update,
     // delete: _delete
 };
-const url = 'localhost:5000/api';
+const url = 'http://localhost:5000/api';
 
-function login(username, password) {
+function login(userID, password) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
+        body: JSON.stringify({ userID: userID, password: password })
     };
 
-    return fetch(`${url}/users/authenticate`, requestOptions)
+    return fetch(`${url}/login`, requestOptions)
         .then(handleRespone)
         .then(user => {
             if (user.userID) {
@@ -45,11 +45,14 @@ function register(user) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Context-Type': 'application/json' },
-        body: JSON.stringify(user)
+        body: JSON.stringify({user: user})
     };
-    return fetch(`${url}/users/register`, requestOptions)
-    .then(handleRespone)
-
+    return new Promise((response, reject) => {
+        setTimeout(() => {  
+        return response( fetch(`${url}/register`, requestOptions)
+            .then(handleRespone))
+        },3000)
+    }); 
 }
 
 function update(user) {

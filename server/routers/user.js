@@ -4,13 +4,13 @@ module.exports = (router) => {
 
     router
         .route('/login')
-        .get(userController.getUserById)
+        .post(userController.getUserById)
 
     router
         .route('/users')
         .get(userController.getAllUser)
 
     router
-        .route("/addNewUser")
-        .get(userController.addNewUser)
+        .route("/register")
+        .post(userController.addNewUser)
 }

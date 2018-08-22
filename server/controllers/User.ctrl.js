@@ -17,7 +17,7 @@ module.exports = {
         })
     },
     getUserById: (req, res, next) => {
-        User.find({ userID: req.params.userID, password: req.params.password }, (err, user) => {
+        User.find({ userID: req.body.userID, password: req.body.password }, (err, user) => {
             if (err)
                 res.send(err)
             else if (!user)
@@ -40,12 +40,15 @@ module.exports = {
         })
     },
     addNewUser: (req, res, next) => {
-        var obj = new User({ userID: "as000", fullName: "Tran Trung Nam", email: "trantrungnam1997vn2@gmail", password: "abcd" });
+        console.log(req.body.user.username);
+        var obj = new User({ userID: req.body.user.username, fullName: req.body.user.fullname, email: req.body.user.email, password: req.body.user.password });
+     
         try {
             obj.save();
         }
         catch (err){
             console.log(err);
         }
+        next()
     }
 }
