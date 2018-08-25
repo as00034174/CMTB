@@ -6,7 +6,7 @@ import { userActions } from './actions/user.actions'
 class LoginPage extends React.Component {
     constructor(props) {
         super(props);
-
+        
         this.props.dispatch(userActions.logout());
 
         this.state = {
@@ -59,7 +59,11 @@ class LoginPage extends React.Component {
                                             <a href="#" className="text-info">Forgotten Password?</a>
                                         </label>
                                     </div>
-                                    <button className="au-btn au-btn--block au-btn--green m-b-20" onClick={this.handleSubmit} type="submit">sign in</button>
+                                    {loggingIn ? <div className="row container">
+                                        <button className="au-btn au-btn--block au-btn--green m-b-20 col-10" type="submit" onClick={this.handleSubmit}>Sign In</button>
+                                        <div className="lds-css ng-scope"><div className="lds-rolling"><div></div></div></div>
+                                    </div> : <button className="au-btn au-btn--block au-btn--green m-b-20" type="submit" onClick={this.handleSubmit}>Sign In</button>
+                                    }
                                     <div className="social-login-content">
                                         <div className="social-button">
                                             <button className="au-btn au-btn--block au-btn--blue m-b-20">sign in with facebook</button>

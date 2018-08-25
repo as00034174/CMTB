@@ -14,7 +14,10 @@ function login(userID, password) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userID: userID, password: password })
+        body: JSON.stringify({
+            userID: userID,
+            password: password
+        })
     };
 
     return fetch(`${url}/login`, requestOptions)
@@ -22,6 +25,7 @@ function login(userID, password) {
         .then(user => {
             if (user.userID) {
                 localStorage.setItem('user', JSON.stringify(user));
+                console.log(localStorage.getItem('user'));
             }
             return user;
         });
@@ -42,17 +46,21 @@ function getAll() {
 }
 
 function register(user) {
+    console.log(user);
     const requestOptions = {
         method: 'POST',
-        headers: { 'Context-Type': 'application/json' },
-        body: JSON.stringify({user: user})
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            username: user.username,
+            fullname: user.fullname,
+            email: user.email,
+            password: user.password
+        })
     };
-    return new Promise((response, reject) => {
-        setTimeout(() => {  
-        return response( fetch(`${url}/register`, requestOptions)
-            .then(handleRespone))
-        },3000)
-    }); 
+    return (fetch(`${url}/register`, requestOptions)
+        .then(handleRespone))
 }
 
 function update(user) {
@@ -70,15 +78,12 @@ function handleRespone(response) {
         const data = text && JSON.parse(text);
         if (!response.ok) {
             if (response.status === 401) {
-                // auto logout if 401 response returned from api
                 logout();
-                // location.reload(true);
             }
 
             const error = (data && data.message) || response.statusText;
             return Promise.reject(error);
         }
-
         return data;
     });
 }

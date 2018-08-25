@@ -25,7 +25,6 @@ class RegistrationPage extends React.Component {
         if (username && fullname && email && password) {
             dispatch(userActions.register(this.state));
         }
-
     }
 
     handlerChange(event) {
@@ -34,7 +33,7 @@ class RegistrationPage extends React.Component {
 
     render() {
 
-        const {registering} = this.props;
+        const { registering } = this.props;
 
         return (
             <div className="">
@@ -64,10 +63,10 @@ class RegistrationPage extends React.Component {
                                         <label>Password</label>
                                         <input className="au-input au-input--full" type="password" name="password" onChange={this.handlerChange} placeholder="Password" />
                                     </div>
-                                    { registering ? <div className="row container">
-                                    <button className="au-btn au-btn--block au-btn--green m-b-20 col-10" type="submit" onClick={this.handlerSubmit}>register</button>
-                                    <div className="lds-css ng-scope"><div className="lds-rolling"><div></div></div></div>
-                                    </div> :  <button className="au-btn au-btn--block au-btn--green m-b-20" type="submit" onClick={this.handlerSubmit}>register</button>
+                                    {registering ? <div className="row container">
+                                        <button className="au-btn au-btn--block au-btn--green m-b-20 col-10" type="submit" onClick={this.handlerSubmit}>register</button>
+                                        <div className="lds-css ng-scope"><div className="lds-rolling"><div></div></div></div>
+                                    </div> : <button className="au-btn au-btn--block au-btn--green m-b-20" type="submit" onClick={this.handlerSubmit}>register</button>
                                     }
                                     <div className="social-login-content">
                                         <div className="social-button">

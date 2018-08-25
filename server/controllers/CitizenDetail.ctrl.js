@@ -34,7 +34,6 @@ module.exports = {
         }
         new CitizenDetail(initItem).save((err, result) => {
             if (err) throw err;
-            else if (!result) res.send(404)
             else res.send(result)
             next();
         })
