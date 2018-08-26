@@ -33,52 +33,60 @@ class RegistrationPage extends React.Component {
 
     render() {
 
-        const { registering } = this.props;
+        const { registering, alert } = this.props;
 
         return (
             <div className="">
-                <div className="page-content">
-                    <div className="container">
-                        <div className="login-wrap" >
-                            <div className="login-content">
-                                <div className="login-logo">
-                                    <a href="#">
-                                        <img src="../public/images/LogoCMTB.png" alt="CMTB" />
-                                    </a>
-                                </div>
-                                <div className="login-form">
-                                    <div className="form-group">
-                                        <label>Username</label>
-                                        <input className="au-input au-input--full" type="text" name="username" onChange={this.handlerChange} placeholder="Username" />
+                <div className="page-content--bge5">
+                    <div className="page-content">
+                        <div className="container">
+                            <div className="login-wrap" >
+                                <div className="login-content">
+                                    <div className="login-logo">
+                                        <a href="#">
+                                            <img src="../public/images/LogoCMTB.png" alt="CMTB" />
+                                        </a>
                                     </div>
-                                    <div className="form-group">
-                                        <label>Fullname</label>
-                                        <input className="au-input au-input--full" type="text" name="fullname" onChange={this.handlerChange} placeholder="Fullname" />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Email Address</label>
-                                        <input className="au-input au-input--full" type="email" name="email" onChange={this.handlerChange} placeholder="Email" />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Password</label>
-                                        <input className="au-input au-input--full" type="password" name="password" onChange={this.handlerChange} placeholder="Password" />
-                                    </div>
-                                    {registering ? <div className="row container">
-                                        <button className="au-btn au-btn--block au-btn--green m-b-20 col-10" type="submit" onClick={this.handlerSubmit}>register</button>
-                                        <div className="lds-css ng-scope"><div className="lds-rolling"><div></div></div></div>
-                                    </div> : <button className="au-btn au-btn--block au-btn--green m-b-20" type="submit" onClick={this.handlerSubmit}>register</button>
-                                    }
-                                    <div className="social-login-content">
+                                    <div className="login-form">
+                                        <div className="form-group">
+                                            <label>Username</label>
+                                            <input className="au-input au-input--full" type="text" name="username" onChange={this.handlerChange} placeholder="Username" />
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Fullname</label>
+                                            <input className="au-input au-input--full" type="text" name="fullname" onChange={this.handlerChange} placeholder="Fullname" />
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Email Address</label>
+                                            <input className="au-input au-input--full" type="email" name="email" onChange={this.handlerChange} placeholder="Email" />
+                                        </div>
+                                        <div className="form-group">
+                                            <label>Password</label>
+                                            <input className="au-input au-input--full" type="password" name="password" onChange={this.handlerChange} placeholder="Password" />
+                                        </div>
+                                        {registering ? <div className="row container">
+                                            <button className="au-btn au-btn--block au-btn--green m-b-20 col-10" type="submit" onClick={this.handlerSubmit}>register</button>
+                                            <div className="lds-css ng-scope"><div className="lds-rolling"><div></div></div></div>
+                                        </div> : <button className="au-btn au-btn--block au-btn--green m-b-20" type="submit" onClick={this.handlerSubmit}>register</button>
+                                        }
+                                        {/* <div className="social-login-content">
                                         <div className="social-button">
                                             <button className="au-btn au-btn--block au-btn--blue m-b-20">register with facebook</button>
                                         </div>
-                                    </div>
+                                    </div> */}
 
-                                    <div className="register-link">
-                                        <p>
-                                            Already have account?
+                                        <div className="register-link">
+                                            <p>
+                                                Already have account?
                                         <a href="./login.html">Sign In</a>
-                                        </p>
+                                            </p>
+                                        </div>
+                                        <div className=" col-sm-offset-2">
+                                            {alert.message && <div className={`alert ${alert.type}`}>
+                                                {alert.message}
+                                            </div>
+                                            }
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -86,14 +94,14 @@ class RegistrationPage extends React.Component {
                     </div>
                 </div>
             </div>
-
         )
     }
 }
 
 function mapStateToProps(state) {
     const { registering } = state.registration;
-    return { registering };
+    const { alert } = state;
+    return { registering, alert };
 }
 
 const connectRegisterPage = connect(mapStateToProps)(RegistrationPage)

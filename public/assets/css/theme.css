@@ -295,11 +295,11 @@ section {
 }
 
 .login-logo {
-    width: 50%;
-    height: 50%;
+    width: 40%;
+    height: 25%;
     text-align: center;
     margin-bottom: 30px;
-    margin-left: 23%;
+    margin-left: 30%;
 }
 
 .login-checkbox {
