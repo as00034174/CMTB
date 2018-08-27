@@ -49,12 +49,12 @@ class LoginPage extends React.Component {
                             </div>
                             <div className="login-form">
                                 <div className="form-group">
-                                    <label>Email Address</label>
+                                    <label>Email :</label>
                                     <input className="au-input au-input--full" type="email" name="username" value={username} onChange={this.handleChange} placeholder="Email" />
                                     {submitted && !username && <div className="text-danger">User is required</div>}
                                 </div>
                                 <div className="form-group">
-                                    <label>Password</label>
+                                    <label>Password :</label>
                                     <input className="au-input au-input--full" type="password" value={password} onChange={this.handleChange} name="password" placeholder="Password" />
                                 </div>
                                 <div className="login-checkbox">

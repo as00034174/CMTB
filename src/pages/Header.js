@@ -2,98 +2,46 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { userActions } from '../actions/user.actions'
 import { connect } from 'react-redux';
+import {history} from '../helpers/history'
 
 class Header extends React.Component {
     constructor(props) {
         super(props)
-
+        
         //WILL ADD A CHECK USER IN LOCALSTORAGE
-
+        const data = JSON.parse(localStorage.getItem('user'))
         this.state = {
+            fullName: data.fullName,
             userName: "",
             notices: [],
             messages: [],
-            searchKey: ""
+            searchKey: "",
+           
         },
             this.handleSubmit = this.handleSubmit.bind(this),
             this.handleChange = this.handleChange.bind(this)
     }
 
 
-    handleChange() {
-
+    handleChange(event) {
+        this.setState({[event.target.name]: event.target.value})
     }
 
-    handleSubmit() {
-
+    handleSubmit(event) {
+        event.preventDefault();
+        console.log(localStorage.getItem('user'));
     }
 
     render() {
-        const { userID, fullName, email, password } = localStorage.getItem('user');
         return (
             <div>
-                <header class="header-mobile d-block d-lg-none">
-                    <div class="header-mobile__bar">
-                        <div class="container-fluid">
-                            <div class="header-mobile-inner">
-                                <a class="logo" href="index.html">
-                                    <img src="../public/images/LogoCMTB.png" class="logoCMTB-home-mobie" alt="CoolAdmin" />
-                                </a>
-                                <button class="hamburger hamburger--slider" type="button">
-                                    <span class="hamburger-box">
-                                        <span class="hamburger-inner"></span>
-                                    </span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <nav class="navbar-mobile">
-                        <div class="container-fluid">
-                            <ul class="navbar-mobile__list list-unstyled">
-
-                                <li>
-                                    <a href="chart.html">
-                                        <i class="fas fa-chart-bar"></i>Add new citizen</a>
-                                </li>
-                                <li>
-                                    <a href="table.html">
-                                        <i class="fas fa-table"></i>Manage citizen</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
-                </header>
-                <aside class="menu-sidebar d-none d-lg-block">
-                    <div class="logo">
-                        <a href="#" class="link-image-logo">
-                            <img src="../public/images/Logo-CMTB-Home.png" class="logoCMTB-home-sm" alt="CoolAdmin" />
-                        </a>
-
-                    </div>
-                    <div class="menu-sidebar__content">
-                        <nav class="navbar-sidebar">
-                            <ul class="list-unstyled navbar__list">
-                                <li class="active">
-                                    <a href="form.html">
-                                        <i class="fas fa-table" ></i>Add new citizen</a>
-                                </li>
-                                <li>
-                                    <a href="admin.html">
-                                        <i class="fas fa-chart-bar"></i>Citizen</a>
-                                </li>
-
-
-                            </ul>
-                        </nav>
-                    </div>
-                </aside>
                 <div class="page-container">
                     <header class="header-desktop">
                         <div class="section__content section__content--p30">
                             <div class="container-fluid">
                                 <div class="header-wrap">
                                     <form class="form-header" action="" method="POST">
-                                        <input class="au-input au-input--xl" type="text" name="search" placeholder="Search for datas &amp; reports..." />
+                                        <input class="au-input au-input--xl" type="text" value={this.state.searchKey} name="search" placeholder="Search for datas &amp; reports..." />
                                         <button class="au-btn--submit" type="submit">
                                             <i class="zmdi zmdi-search"></i>
                                         </button>
@@ -109,7 +57,7 @@ class Header extends React.Component {
                                                     </div>
                                                     <div class="mess__item">
                                                         <div class="image img-cir img-40">
-                                                            <img src="images/icon/avatar-06.jpg" alt="Michelle Moreno" />
+                                                            <img src="/assets/images/icon/avatar-06.jpg" alt="Michelle Moreno" />
                                                         </div>
                                                         <div class="content">
                                                             <h6>Michelle Moreno</h6>
@@ -119,7 +67,7 @@ class Header extends React.Component {
                                                     </div>
                                                     <div class="mess__item">
                                                         <div class="image img-cir img-40">
-                                                            <img src="images/icon/avatar-04.jpg" alt="Diane Myers" />
+                                                            <img src="/assets/images/icon/avatar-04.jpg" alt="Diane Myers" />
                                                         </div>
                                                         <div class="content">
                                                             <h6>Diane Myers</h6>
@@ -213,17 +161,18 @@ class Header extends React.Component {
                                         </div>
                                         <div class="account-wrap">
                                             <div class="account-item clearfix js-item-menu">
-                                                <div class="image">
-                                                    <img src="images/icon/avatar-01.jpg" alt="Nam Tran" />
+                                                
+                                                <div class="image-top-show">
+                                                    <img src="/assets/images/icon/avatar-01.jpg" alt="Nam Tran" />
                                                 </div>
                                                 <div class="content">
-                                                    <a class="js-acc-btn" href="#">Nam Tran</a>
+                                                    <a class="js-acc-btn" href="#">{this.state.fullName}</a>
                                                 </div>
-                                                <div class="account-dropdown js-dropdown">
+                                                <div class="box-option-account">
                                                     <div class="info clearfix">
                                                         <div class="image">
                                                             <a href="#">
-                                                                <img src="images/icon/avatar-01.jpg" alt="Nam Tran" />
+                                                                <img src="/assets/images/icon/avatar-01.jpg" alt="Nam Tran" />
                                                             </a>
                                                         </div>
                                                         <div class="content">
@@ -244,8 +193,8 @@ class Header extends React.Component {
                                                         </div>
                                                     </div>
                                                     <div class="account-dropdown__footer">
-                                                        <a href="#">
-                                                            <i class="zmdi zmdi-power"></i>Logout</a>
+                                                        <Link to="login">
+                                                            <i class="zmdi zmdi-power"></i>Logout</Link>
                                                     </div>
                                                 </div>
                                             </div>
@@ -255,133 +204,20 @@ class Header extends React.Component {
                             </div>
                         </div>
                     </header>
-                    <div class="main-content">
-                        <div class="section__content section__content--p30">
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="card">
-                                            <div class="card-header">Credit Card</div>
-                                            <div class="card-body">
-                                                <div class="card-title">
-                                                    <h3 class="text-center title-2">Pay Invoice</h3>
-                                                </div>
-
-                                                <form action="" method="post" novalidate="novalidate">
-
-
-
-                                                    <div class="form-group row">
-                                                        <div class="col-6 ">
-                                                            <img src="../images/noimage.png" class="rounded imagePerson " alt="Cinque Terre" />
-                                                        </div>
-                                                        <div class="col-6 cardMobie-320">
-                                                            <label for="x_card_code" class="control-label mb-1">ID card</label>
-                                                            <div class="input-group">
-                                                                <input id="x_card_code" name="x_card_code" type="tel" class="form-control cc-cvc input-cardID" value="" data-val="true" data-val-required="Please enter the security code"
-                                                                    data-val-cc-cvc="Please enter a valid security code" autocomplete="off" />
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="form-group has-success">
-                                                        <label for="cc-name" class="control-label mb-1">Full name</label>
-                                                        <input id="cc-name" name="cc-name" type="text" class="form-control cc-name valid" data-val="true" data-val-required="Please enter the name on card"
-                                                            autocomplete="cc-name" aria-required="true" aria-invalid="false" aria-describedby="cc-name-error" />
-                                                        <span class="help-block field-validation-valid" data-valmsg-for="cc-name" data-valmsg-replace="true"></span>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="cc-number" class="control-label mb-1">Date of birth</label>
-                                                        <input id="cc-number" name="cc-number" type="tel" class="form-control cc-number identified visa" value="" data-val="true"
-                                                            data-val-required="Please enter the card number" data-val-cc-number="Please enter a valid card number"
-                                                            autocomplete="cc-number" />
-                                                        <span class="help-block" data-valmsg-for="cc-number" data-valmsg-replace="true"></span>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-6">
-                                                            <div class="form-group">
-                                                                <label for="cc-exp" class="control-label mb-1">Sex</label>
-                                                                <input id="cc-exp" name="cc-exp" type="tel" class="form-control cc-exp" value="" data-val="true" data-val-required="Please enter the card expiration"
-                                                                    data-val-cc-exp="Please enter a valid month and year" placeholder="MM / YY"
-                                                                    autocomplete="cc-exp" />
-                                                                <span class="help-block" data-valmsg-for="cc-exp" data-valmsg-replace="true"></span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-6 " >
-                                                            <label for="x_card_code" class="control-label mb-1">ID card</label>
-                                                            <div class="input-group">
-                                                                <input id="x_card_code" name="x_card_code" type="tel" class="form-control cc-cvc" value="" data-val="true" data-val-required="Please enter the security code"
-                                                                    data-val-cc-cvc="Please enter a valid security code" autocomplete="off" />
-
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div>
-                                                        <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block submit-lap-custom">
-                                                            <span id="payment-button-amount">Submit</span>
-                                                            <span id="payment-button-sending">Sending…</span>
-                                                        </button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="card">
-                                            <div class="card-header">
-                                                <strong>More information</strong>
-                                                <small> Form</small>
-                                            </div>
-                                            <div class="card-body card-block">
-                                                <div class="form-group">
-                                                    <label for="company" class=" form-control-label">Relationship</label>
-                                                    <input type="text" id="company" placeholder="Father name" class="form-control" />
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="vat" class=" form-control-label">and</label>
-                                                    <input type="text" id="vat" placeholder="Mother name" class="form-control" />
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="street" class=" form-control-label">Adress</label>
-                                                    <input type="text" id="street" placeholder="Enter adress" class="form-control" />
-                                                </div>
-                                                <div class="row form-group">
-                                                    <div class="col-8">
-                                                        <div class="form-group">
-                                                            <label for="city" class=" form-control-label">Degree</label>
-                                                            <input type="text" id="city" placeholder="Enter degree of citizen" class="form-control" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-8">
-                                                        <div class="form-group">
-                                                            <label for="postal-code" class=" form-control-label">Identification</label>
-                                                            <input type="text" id="postal-code" placeholder="Enter Identification" class="form-control" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div >
-                                                <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block submit-mobie-custom">
-                                                    <span id="payment-button-amount">Submit</span>
-                                                    <span id="payment-button-sending" >Sending…</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
-            
+
         )
     }
 }
 function mapStateToProps(state) {
     const { user } = state.authentication;
+    try {
+    const { data } = localStorage.getItem('user');
+    } catch (e) {
+        history.push('login');
+    }
     return { user };
 }
 

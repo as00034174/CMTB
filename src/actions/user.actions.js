@@ -24,7 +24,7 @@ function login(username, password) {
 
                     console.log(user);
                     if (user.length !== 0) {
-                        history.push('/home');
+                        history.push('/admin');
                         dispatch(alertActions.success("LOGIN ACCESS"));
                         dispatch(success(user));
                     }

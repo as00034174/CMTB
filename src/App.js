@@ -16,13 +16,14 @@ class App extends Component {
     // history.listen((location, action) => {
     //   dispatch(alertActions.clear());
     // });
-  }
+  } 
   render() {
     const { alert } = this.props;
     return (
      <div>
       <Router history={history}>
       <div>
+        {localStorage.getItem('user')? "" : history.push('/')}
         <PrivateRoute exact path="/" component={HomePage} />
         <Route path="/login" component={LoginPage} />
         <Route path="/registration" component={RegistrationPage} />
