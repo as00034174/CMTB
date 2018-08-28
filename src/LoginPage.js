@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { userActions } from './actions/user.actions'
 import { stat } from 'fs';
+import { loadavg } from 'os';
 
 class LoginPage extends React.Component {
     constructor(props) {
@@ -80,7 +81,7 @@ class LoginPage extends React.Component {
                                     </p>
                                 </div>
                                 <div className=" col-sm-offset-2">
-                                    {alert.message && <div className={`alert ${alert.type}`}>
+                                    {alert.message && !loggingIn && <div className={`alert ${alert.type}`}>
                                         {alert.message}
                                     </div>
                                     }
