@@ -1,21 +1,23 @@
 import React from "react"
-import { Link } from 'react-router-dom'
 import { Header } from './pages/Header'
 import { connect } from 'react-redux'
 import { Menu } from './pages/Menu'
 import { Router, Route } from 'react-router-dom'
 import { FormAddNewItem } from './pages/FormAddNewItem'
+import { PrivateRoute } from "./PrivateRoute";
+import { LoginPage } from "./LoginPage";
 
 class AddNewCitizenDetailPage extends React.Component {
     render() {
+        console.log(this.props)
         return (
+
             <Router history={this.props.history}>
+                
                 <div className="container">
                     <Header />
                     <Menu />
-                    <div>
-                        <Route path="/" component={FormAddNewItem}></Route>
-                    </div>
+                    <Route path="/" component={FormAddNewItem}  ></Route>
                 </div>
             </Router>
 

@@ -11,13 +11,13 @@ document.body.appendChild(stats.domElement);
 			context = canvas.getContext('2d'),
 			defaults = {
 				star: {
-					color: '#F8F8FF',
+					color: '#fdfdfd',
 					width: 0.4,
 					randomWidth: true
 				},
 				line: {
-					color: '#F8F8FF',
-					width: 0.6
+					color: '#fdfdfd',
+					width: 0.9
 				},
 				position: {
 					x: 0,
@@ -210,6 +210,6 @@ $('canvas').constellation({
 	line: {
 		color: '#F8F8FF'
 	},
-	length: (window.innerWidth / 10),
+	length: (window.innerWidth / 20),
 	radius: (window.innerWidth / 5)
 });

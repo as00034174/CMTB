@@ -3,7 +3,7 @@ const CitizenDetail = require('../controllers/CitizenDetail.ctrl')
 module.exports = (router) => {
     router
         .route('/addNewDetail')
-        .get(CitizenDetail.addCitizenDetail)
+        .post(CitizenDetail.addCitizenDetail)
 
 
     router

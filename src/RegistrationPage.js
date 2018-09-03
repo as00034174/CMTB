@@ -1,6 +1,5 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
 import { userActions } from './actions/user.actions'
 
 class RegistrationPage extends React.Component {
@@ -18,6 +17,7 @@ class RegistrationPage extends React.Component {
     }
 
     handlerSubmit(event) {
+        console.log(this.props);
         event.preventDefault();
         this.setState({ submitted: true });
         const { dispatch } = this.props;

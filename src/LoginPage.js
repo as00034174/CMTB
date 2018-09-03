@@ -2,8 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { userActions } from './actions/user.actions'
-import { stat } from 'fs';
-import { loadavg } from 'os';
 
 class LoginPage extends React.Component {
     constructor(props) {
@@ -44,7 +42,7 @@ class LoginPage extends React.Component {
                     <div className="login-wrap">
                         <div className="login-content">
                             <div className="login-logo">
-                            <a href="#">
+                                <a href="#">
                                     <img src="/assets/images/LogoCMTB.png" alt="CoolAdmin" />
                                 </a>
                             </div>
