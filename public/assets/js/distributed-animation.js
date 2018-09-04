@@ -6,7 +6,7 @@ stats.domElement.style.top = '0px';
 document.body.appendChild(stats.domElement);
 (function ($, window) {
 	var $window = $(window);
-	function Constellation (canvas, options) {
+	function Constellation(canvas, options) {
 		var $canvas = $(canvas),
 			context = canvas.getContext('2d'),
 			defaults = {
@@ -23,7 +23,7 @@ document.body.appendChild(stats.domElement);
 					x: 0,
 					y: 0
 				},
-				width: window.innerWidth,
+				width: window.innerWidth - 30,
 				height: window.innerHeight,
 				velocity: 0.1,
 				length: 100,
@@ -33,7 +33,7 @@ document.body.appendChild(stats.domElement);
 			},
 			config = $.extend(true, {}, defaults, options);
 
-		function Star () {
+		function Star() {
 			this.x = Math.random() * canvas.width;
 			this.y = Math.random() * canvas.height;
 
@@ -44,13 +44,13 @@ document.body.appendChild(stats.domElement);
 		}
 
 		Star.prototype = {
-			create: function(){
+			create: function () {
 				context.beginPath();
 				context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
 				context.fill();
 			},
 
-			animate: function(){
+			animate: function () {
 				var i;
 				for (i = 0; i < config.length; i++) {
 
@@ -69,7 +69,7 @@ document.body.appendChild(stats.domElement);
 				}
 			},
 
-			line: function(){
+			line: function () {
 				var length = config.length,
 					iStar,
 					jStar,
@@ -155,7 +155,7 @@ document.body.appendChild(stats.domElement);
 
 		this.handlers = {
 			window: {
-				mousemove: function(e){
+				mousemove: function (e) {
 					config.position.x = e.pageX - $canvas.offset().left;
 					config.position.y = e.pageY - $canvas.offset().top;
 				},

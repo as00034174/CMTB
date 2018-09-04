@@ -62,28 +62,31 @@ export class HomePage extends React.Component {
                             <div className="col-lg-4">
                                 <div className="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
                                     <div className="features-icons-icon d-flex">
-                                        <i className="icon-screen-desktop m-auto text-primary"></i>
+                                    <a href="#imutable" className=" m-auto" >
+                                        <i className="icon-screen-desktop m-auto text-primary fa fa-lock"></i>
+                                        </a>
                                     </div>
-                                    <h3>Fully Responsive</h3>
-                                    <p className="lead mb-0">This theme will look great on any device, no matter the size!</p>
+                                    <h3>Immutable</h3>
                                 </div>
                             </div>
                             <div className="col-lg-4">
                                 <div className="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
                                     <div className="features-icons-icon d-flex">
-                                        <i className="icon-layers m-auto text-primary"></i>
+                                        <a href="#security" className=" m-auto" >
+                                            <i className="icon-layers m-auto text-primary fa fa-address-book"></i>
+                                        </a>
                                     </div>
-                                    <h3>Bootstrap 4 Ready</h3>
-                                    <p className="lead mb-0">Featuring the latest build of the new Bootstrap 4 framework!</p>
+                                    <h3>Security</h3>
                                 </div>
                             </div>
                             <div className="col-lg-4">
                                 <div className="features-icons-item mx-auto mb-0 mb-lg-3">
                                     <div className="features-icons-icon d-flex">
-                                        <i className="icon-check m-auto text-primary"></i>
+                                        <a href="#control" className=" m-auto" >
+                                            <i className="icon-check m-auto text-primary fa fa-users"></i>
+                                        </a>
                                     </div>
-                                    <h3>Easy to Use</h3>
-                                    <p className="lead mb-0">Ready to use with your own content, or customize the source files!</p>
+                                    <h3>Control</h3>
                                 </div>
                             </div>
                         </div>
@@ -92,36 +95,38 @@ export class HomePage extends React.Component {
 
                 <div className="showcase">
                     <div className="container-fluid p-0">
-                        <div className="row no-gutters">
+                        <div id="imutable" className="row no-gutters">
 
                             <div className="col-lg-6 order-lg-2 text-white showcase-img">
-                                <img src="/assets/images/imagesHome/bg-showcase-1.jpg" />
+                                <img src="/assets/images/imagesHome/Ecommerce-with-blockchain.jpg" />
                             </div>
                             <div className="col-lg-6 order-lg-1 my-auto showcase-text">
-                                <h2>Fully Responsive Design</h2>
-                                <p className="lead mb-0">When you use a theme created by Start Bootstrap,
-                                 you know that the theme will look great on any device, whether
-            it's a phone, tablet, or desktop the page will behave responsively!</p>
+                                <h2>Immutable</h2>
+                                <p className="lead mb-0">Unlike a traditional database where records can be updated or deleted,
+                                    entries on the blockchain are immutable,
+                                    this means once they have been written they cannot be updated or tampered with</p>
                             </div>
                         </div>
-                        <div className="row no-gutters">
+                        <div id="security" className="row no-gutters">
                             <div className="col-lg-6 text-white showcase-img">
-                                <img src="/assets/images/imagesHome/bg-showcase-2.jpg" />
+                                <img src="/assets/images/imagesHome/security-bl.jpg" />
                             </div>
                             <div className="col-lg-6 my-auto showcase-text">
-                                <h2>Updated For Bootstrap 4</h2>
-                                <p className="lead mb-0">Newly improved, and full of great utility classNamees, Bootstrap 4 is leading the way in mobile responsive web development!
-            All of the themes on Start Bootstrap are now using Bootstrap 4!</p>
+                                <h2>Security</h2>
+                                <p className="lead mb-0">Blockchains are secure by design with their immutable chain,
+                                    proof of work to ensure consensus and many copies of the
+                                    data to ensure that there is not a single point of attack.</p>
                             </div>
                         </div>
-                        <div className="row no-gutters">
+                        <div id="control" className="row no-gutters">
                             <div className="col-lg-6 order-lg-2 text-white showcase-img">
-                                <img src="/assets/images/imagesHome/bg-showcase-3.jpg" />
+                                <img src="/assets/images/imagesHome/Blockchain.jpg" />
                             </div>
                             <div className="col-lg-6 order-lg-1 my-auto showcase-text">
-                                <h2>Easy to Use &amp; Customize</h2>
-                                <p className="lead mb-0">Landing Page is just HTML and CSS with a splash of SCSS for users who demand some deeper customization options.
-            Out of the box, just add your content and images, and your new landing page will be ready to go!</p>
+                                <h2>Control</h2>
+                                <p className="lead mb-0">Blockchains were designed to be used between untrusted parties
+                                    so the multiple copies of data and consensus mechanisms ensure that it is not
+                                    possible for any individual to manipulate records or attack the system</p>
                             </div>
                         </div>
                     </div>

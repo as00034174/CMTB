@@ -29,14 +29,36 @@ class Header extends React.Component {
         console.log(localStorage.getItem('user'));
     }
 
-    componentWillMount () {
-        if(typeof localStorage.getItem('user') === 'undefined')
+    componentWillMount() {
+        if (typeof localStorage.getItem('user') === 'undefined')
             history.push('/login');
+    }
+
+    componentDidMount() {
+        const script = document.createElement("script");
+        script.src = 'assets/js/animsition.min.js';
+        script.async = true;
+        document.body.appendChild(script);
+
+        const script2 = document.createElement("script");
+        script2.src = 'assets/js/main.js';
+        script2.async = true;
+        document.body.appendChild(script2);
+    
+        const script3 = document.createElement("script");
+        script3.src = 'assets/js/bootstrap.min.js';
+        script3.async = true;
+        document.body.appendChild(script3);
+
+        const script4 = document.createElement("script");
+        script4.src = 'assets/js/jquery.min.js';
+        script4.async = true;
+        document.body.appendChild(script4);
     }
 
     render() {
         const data = JSON.parse(localStorage.getItem('user'));
-        const {fullName, email, userID} = data;
+        const { fullName, email, userID } = data;
         return (
             <div>
                 <div className="page-container">
