@@ -2,6 +2,9 @@ import React from 'react'
 import { itemAction } from '../actions/item.acion';
 import { connect } from 'react-redux';
 import { itemService } from '../services/item.service';
+
+import axios from 'axios';
+
 class FormAddNewItem extends React.Component {
     constructor(props) {
         super(props)
@@ -17,22 +20,22 @@ class FormAddNewItem extends React.Component {
             address: '',
             degree: '',
             desciption: '',
-            selectedFile: '',
+            selectedFile: null,
         },
 
             this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.uploalFileRequest = this.uploalFileRequest.bind(this);
         this.handleUploadImage = this.handleUploadImage.bind(this);
     }
 
     handleChange(event) {
         switch (event.target.name) {
-            case 'selectedFile':
-                this.setState({ selectedFile: event.target.files[0] })
+            case 'file':
+                // this.setState({ selectedFile: event.target.files });
+                console.log(event.target.files);
+            default:
+                this.setState({ [event.target.name]: event.target.value });
         }
-        this.setState({ [event.target.name]: event.target.value });
-
     }
 
 
@@ -42,31 +45,23 @@ class FormAddNewItem extends React.Component {
         dispatch(itemAction.addNewItem(this.state));
     }
 
-    uploalFileRequest() {
-        
-        let data = new FormData();
-        data.append('file', this.state.selectedFile.files[0]);
-        itemService.handelFileUpload(data);
-    }
-
     handleUploadImage(ev) {
         ev.preventDefault();
-        console.log(this.state)
         const data = new FormData();
         data.append('file', this.state.selectedFile);
-        data.append('filename', "abcdc");
-
-        fetch('http://localhost:5000/abc/uploadFile', {
-            method: 'POST',
+        console.log(this.state.selectedFile);
+        const requestOptions = {
+            method: "post",
             headers: {
-                "Content-Type": "application/json",
+                "Content-Type": "multipart/form-data"
             },
-            body:JSON.stringify(data)
-        }).then((response) => {
-            response.json().then((body) => {
-                this.setState({ imageURL: `http://localhost:5000/${body.file}` });
+            body: data,
+        };
+        console.log(requestOptions);
+        fetch('http://localhost:5000/api/uploadFile', requestOptions)
+            .then((response) => {
+                console.log(response);
             });
-        });
     }
 
     render() {
@@ -87,10 +82,10 @@ class FormAddNewItem extends React.Component {
                                                 <img src="/assets/images/noimage.png"
                                                     className="rounded imagePerson "
                                                     alt="Cinque Terre" />
+
                                                 <input
                                                     type="file"
-                                                    name="selectedFile"
-                                                    value={this.state.selectedFile}
+                                                    name="file"
                                                     onChange={this.handleChange}
                                                 />
 

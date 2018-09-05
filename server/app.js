@@ -28,19 +28,6 @@ app.use('/api', router)
 app.use(fileupload);
 
 
-app.post('/abc/uploadFile', (req, res, next) => {
-    console.log(req);
-    let imageFile = req.files.file;
-
-    imageFile.mv(`/assets/images/${req.body.filename}.jpg`, function (err) {
-        if (err) {
-            return res.status(500).send(err);
-        }
-        res.json({ file: `public/${req.body.filename}.jpg` });
-    });
-
-})
-
 app.listen(port, () => {
     console.log(`Server is start at port: ${port}`);
 });
