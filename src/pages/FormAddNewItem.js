@@ -1,7 +1,7 @@
 import React from 'react'
-import { itemAction } from '../actions/item.acion';
+// import { itemAction } from '../actions/item.acion';
 import { connect } from 'react-redux';
-import { itemService } from '../services/item.service';
+// import { itemService } from '../services/item.service';
 
 class FormAddNewItem extends React.Component {
     constructor(props) {
@@ -27,33 +27,22 @@ class FormAddNewItem extends React.Component {
         // this.handleUploadImage = this.handleUploadImage.bind(this);
     }
 
+    componentWillMount() {
+        return false;
+    }
+
     handleChange(event) {
+        event.preventDefault();
         switch (event.target.name) {
             case 'file':
                 // this.setState({ selectedFile: event.target.files });
-                const formData = new FormData();
-                this.setState({fileName: event.target.file});
-                console.log(this.state.fileName);
-                const files = event.target.files;
                 let reader = new FileReader();
+                const files = event.target.files;
                 reader.readAsDataURL(files[0]);
                 reader.onload = (e) => {
                     this.setState({ selectedFile: e.target.result });
-                    const url = "http://localhost:5000/api/uploadFile";
-                    formData.append("file", e.target.result);
-                    return fetch(url, {
-                        method: "post",
-                        headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(this.state)
-                    }).then(result => {
-                        console.log(result);
-                    })
                 }
-
-
+                this.setState({ fileName: files[0].name });
             default:
                 this.setState({ [event.target.name]: event.target.value });
         }
@@ -62,8 +51,20 @@ class FormAddNewItem extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        const { dispatch } = this.props;
-        dispatch(itemAction.addNewItem(this.state));
+        // const { dispatch } = this.props;
+        // dispatch(itemAction.addNewItem(this.state));
+        const url = "http://localhost:5000/api/uploadFile";
+        fetch(url, {
+            method: "post",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(this.state)
+        }).then(result => {
+            console.log(result);
+        })
+
     }
 
     // handleUploadImage(ev) {
@@ -104,7 +105,7 @@ class FormAddNewItem extends React.Component {
                                                     alt="Cinque Terre" /> */}
                                                 <img src={this.state.selectedFile}
                                                     className="rounded imagePerson "
-                                                    alt="Cinque Terre" />
+                                                    alt={this.state.fileName} />
                                                 <input
                                                     type="file"
                                                     name="file"
