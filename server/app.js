@@ -20,7 +20,6 @@ try {
 }
 
 let port = 5000 || process.env.PORT
-
 routers(router)
 app.use(cors())
 app.use(bodyParser.json())

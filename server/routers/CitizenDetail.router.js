@@ -1,10 +1,6 @@
 const CitizenDetail = require('../controllers/CitizenDetail.ctrl')
-const express = require('express')
-const fileupload = require('express-fileupload')
-const multer = require('multer');
+var fs = require('fs');
 
-const app = express();
-app.use(fileupload());
 
 module.exports = (router) => {
     router
@@ -19,20 +15,18 @@ module.exports = (router) => {
     router
         .route('/uploadFile')
         .post((req, res, next) => {
-            console.log(req.body.data);
-            if (req.body.file) {
-                var file = req.body.data,
-                    name = file.name,
-                var uploadpath = __dirname + '/assets/' + name;
-                file.mv(uploadpath, function (err) {
-                    if (err) {
-                        console.log("File Upload Failed", name, err);
-                        res.send("Error Occured!")
-                    }
-                    else {
-                        console.log("File Uploaded", name);
-                        res.send('Done! Uploading files')
-                    }
+            if (req.body.selectedFile) {
+                var file = req.body.selectedFile;
+                console.log(__dirname);
+                ///
+                const base64Data = file.replace(/^data:([A-Za-z-+/]+);base64,/, '');
+                // fs.writeFile(path, base64Data, 'base64', (err) => {
+                //     console.log(err);
+                // });
+                // //
+                fs.appendFile('/home/nam/Documents/NodeJS/CMTB/public/assets/images/' + req.body.fileName, base64Data, 'base64', (err) => {
+                    if (err) throw err;
+                    console.log('Saved!');
                 });
             }
             else {

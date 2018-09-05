@@ -3,8 +3,6 @@ import { itemAction } from '../actions/item.acion';
 import { connect } from 'react-redux';
 import { itemService } from '../services/item.service';
 
-import axios from 'axios';
-
 class FormAddNewItem extends React.Component {
     constructor(props) {
         super(props)
@@ -21,18 +19,41 @@ class FormAddNewItem extends React.Component {
             degree: '',
             desciption: '',
             selectedFile: null,
+            fileName: '',
         },
 
             this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
-        this.handleUploadImage = this.handleUploadImage.bind(this);
+        // this.handleUploadImage = this.handleUploadImage.bind(this);
     }
 
     handleChange(event) {
         switch (event.target.name) {
             case 'file':
                 // this.setState({ selectedFile: event.target.files });
-                console.log(event.target.files);
+                const formData = new FormData();
+                this.setState({fileName: event.target.file});
+                console.log(this.state.fileName);
+                const files = event.target.files;
+                let reader = new FileReader();
+                reader.readAsDataURL(files[0]);
+                reader.onload = (e) => {
+                    this.setState({ selectedFile: e.target.result });
+                    const url = "http://localhost:5000/api/uploadFile";
+                    formData.append("file", e.target.result);
+                    return fetch(url, {
+                        method: "post",
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(this.state)
+                    }).then(result => {
+                        console.log(result);
+                    })
+                }
+
+
             default:
                 this.setState({ [event.target.name]: event.target.value });
         }
@@ -45,24 +66,23 @@ class FormAddNewItem extends React.Component {
         dispatch(itemAction.addNewItem(this.state));
     }
 
-    handleUploadImage(ev) {
-        ev.preventDefault();
-        const data = new FormData();
-        data.append('file', this.state.selectedFile);
-        console.log(this.state.selectedFile);
-        const requestOptions = {
-            method: "post",
-            headers: {
-                "Content-Type": "multipart/form-data"
-            },
-            body: data,
-        };
-        console.log(requestOptions);
-        fetch('http://localhost:5000/api/uploadFile', requestOptions)
-            .then((response) => {
-                console.log(response);
-            });
-    }
+    // handleUploadImage(ev) {
+    //     ev.preventDefault();
+    //     const data = new FormData();
+    //     data.append('file', this.state.selectedFile);
+    //     const requestOptions = {
+    //         method: "post",
+    //         headers: {
+    //             'Content-Type': 'multipart/form-data'
+    //         },
+    //         body: data,
+    //     };
+    //     console.log(requestOptions);
+    //     fetch('http://localhost:5000/api/uploadFile', requestOptions)
+    //         .then((response) => {
+    //             console.log(response);
+    //         });
+    // }
 
     render() {
         return (
@@ -79,19 +99,18 @@ class FormAddNewItem extends React.Component {
                                         </div>
                                         <div className="form-group row">
                                             <div className="col-6 ">
-                                                <img src="/assets/images/noimage.png"
+                                                {/* <img src={this.state.selectedFile}
+                                                    className="rounded imagePerson "
+                                                    alt="Cinque Terre" /> */}
+                                                <img src={this.state.selectedFile}
                                                     className="rounded imagePerson "
                                                     alt="Cinque Terre" />
-
                                                 <input
                                                     type="file"
                                                     name="file"
                                                     onChange={this.handleChange}
                                                 />
-
                                             </div>
-                                            <button id="payment-button" type="submit"
-                                                className="btn btn-lg btn-info btn-block submit-lap-custom" onClick={this.handleUploadImage}>Submit</button>
                                             <div className="col-6 cardMobie-320">
                                                 <label className="control-label mb-1">ID card</label>
                                                 <div className="input-group">
