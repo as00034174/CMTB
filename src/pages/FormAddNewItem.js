@@ -1,7 +1,7 @@
 import React from 'react'
 import { itemAction } from '../actions/item.acion';
 import { connect } from 'react-redux';
-
+import { itemService } from '../services/item.service';
 class FormAddNewItem extends React.Component {
     constructor(props) {
         super(props)
@@ -16,28 +16,57 @@ class FormAddNewItem extends React.Component {
             },
             address: '',
             degree: '',
+            desciption: '',
+            selectedFile: '',
         },
 
             this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.uploalFileRequest = this.uploalFileRequest.bind(this);
+        this.handleUploadImage = this.handleUploadImage.bind(this);
     }
 
     handleChange(event) {
-        console.log(event.target.name)
+        switch (event.target.name) {
+            case 'selectedFile':
+                this.setState({ selectedFile: event.target.files[0] })
+        }
         this.setState({ [event.target.name]: event.target.value });
 
     }
 
-    componentDidMount() {
-        console.log(this.state.gender)
-    }
 
     handleSubmit(event) {
-        console.log(this.props);
         event.preventDefault();
         const { dispatch } = this.props;
-        console.log("asdasd");
         dispatch(itemAction.addNewItem(this.state));
+    }
+
+    uploalFileRequest() {
+        
+        let data = new FormData();
+        data.append('file', this.state.selectedFile.files[0]);
+        itemService.handelFileUpload(data);
+    }
+
+    handleUploadImage(ev) {
+        ev.preventDefault();
+        console.log(this.state)
+        const data = new FormData();
+        data.append('file', this.state.selectedFile);
+        data.append('filename', "abcdc");
+
+        fetch('http://localhost:5000/abc/uploadFile', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body:JSON.stringify(data)
+        }).then((response) => {
+            response.json().then((body) => {
+                this.setState({ imageURL: `http://localhost:5000/${body.file}` });
+            });
+        });
     }
 
     render() {
@@ -55,8 +84,19 @@ class FormAddNewItem extends React.Component {
                                         </div>
                                         <div className="form-group row">
                                             <div className="col-6 ">
-                                                <img src="/assets/images/noimage.png" className="rounded imagePerson " alt="Cinque Terre" />
+                                                <img src="/assets/images/noimage.png"
+                                                    className="rounded imagePerson "
+                                                    alt="Cinque Terre" />
+                                                <input
+                                                    type="file"
+                                                    name="selectedFile"
+                                                    value={this.state.selectedFile}
+                                                    onChange={this.handleChange}
+                                                />
+
                                             </div>
+                                            <button id="payment-button" type="submit"
+                                                className="btn btn-lg btn-info btn-block submit-lap-custom" onClick={this.handleUploadImage}>Submit</button>
                                             <div className="col-6 cardMobie-320">
                                                 <label className="control-label mb-1">ID card</label>
                                                 <div className="input-group">
@@ -145,12 +185,12 @@ class FormAddNewItem extends React.Component {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
         )
     }
 }
 
-function mapStateToProps(state){
+function mapStateToProps(state) {
     return {};
 }
 

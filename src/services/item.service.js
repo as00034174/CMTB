@@ -3,6 +3,7 @@ export const itemService = {
     getAllItem,
     // getItem,
     // getItems
+    handelFileUpload,
 }
 
 const url = 'http://localhost:5000/api';
@@ -27,7 +28,20 @@ function getAllItem() {
         },
     }
     return fetch(`${url}/getAllCizenDetail`, requestOptions)
-    .then(handelRespone);
+        .then(handelRespone);
+}
+
+function handelFileUpload(file) {
+    const requestOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'Application/json',
+        body: file
+        },
+    }
+    return fetch(`${url}/uploadFile`, requestOptions);
+
+
 }
 
 function handelRespone(response) {

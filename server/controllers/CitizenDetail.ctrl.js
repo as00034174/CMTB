@@ -32,6 +32,26 @@ module.exports = {
                 degree: "Undergraduate"
             }
         }
+
+        let initItem2 = {
+            index: 2,
+            timestamp: Date.now(),
+            previousHash: "0x000000000000000000000",
+            hash: "0x0000000000000000000",
+            data: {
+                idcard: 0000000000001,
+                fullName: "0000000000000",
+                dateofBirth: "1997/11/16",
+                gender: "Male",
+                relationShip: { 
+                    fatherName: "0x000000",
+                    motherName: "0x000000"
+                },
+                address: "0x00000000",
+                degree: "Undergraduate"
+            }
+        }
+
         new CitizenDetail(initItem).save((err, result) => {
             if (err) throw err;
             else res.send(result)

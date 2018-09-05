@@ -35,9 +35,8 @@ function addNewItem(state) {
     function failure(error) {
         return { type: itemContants.ADD_FAILURE, error }
     };
-
-
 }
+
 
 function getItem() {
 }
