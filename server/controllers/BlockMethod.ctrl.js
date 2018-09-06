@@ -18,8 +18,7 @@ const Block = {
     
 }
 
-function calculateHash() {
-    const { hash, ...blockData } = this
+function calculateHash(blockData) {
     return crypto
         .createHmac('sha256', blockData.toString())
         .digest('hex')
@@ -39,7 +38,6 @@ async function generateNextBlock(blockData) {
     Block.previousHash = previousBlock.hash;
     Block.timeStap = new Date();
     Block.blockData = blockData
-    console.log(blockData);
     Block.hash = calculateHash(Block.index, Block.previousHash, Block.timeStap, Block.blockData);
     return Block;
 };

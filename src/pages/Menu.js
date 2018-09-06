@@ -25,12 +25,12 @@ export class Menu extends React.Component {
                     <ul className="navbar-mobile__list list-unstyled">
 
                         <li>
-                            <a href="chart.html">
-                                <i className="fas fa-chart-bar"></i>Add new citizen</a>
+                            <Link to="/admin">
+                                <i className="fas fa-chart-bar"></i>Add new citizen</Link>
                         </li>
                         <li>
-                            <a href="table.html">
-                                <i className="fas fa-table"></i>Manage citizen</a>
+                            <Link to="/admin/items">
+                                <i className="fas fa-table"></i>Manage citizen</Link>
                         </li>
                     </ul>
                 </div>
@@ -41,21 +41,18 @@ export class Menu extends React.Component {
                 <a href="/" className="link-image-logo">
                     <img src="/assets/images/Logo-CMTB-Home.png" className="logoCMTB-home-sm" alt="CMTB Logo Here" />
                 </a>
-
             </div>
             <div className="menu-sidebar__content">
                 <nav className="navbar-sidebar">
                     <ul className="list-unstyled navbar__list">
                         <li className="active">
-                            <a href="form.html">
-                                <i className="fas fa-table" ></i>Add new citizen</a>
+                        <Link to="/admin">
+                                <i className="fas fa-table" ></i>Add new citizen</Link>
                         </li>
                         <li>
-                            <a href="admin.html">
-                                <i className="fas fa-chart-bar"></i>Citizen</a>
+                        <Link to="/admin/items">
+                                <i className="fas fa-chart-bar"></i>Citizen</Link>
                         </li>
-
-
                     </ul>
                 </nav>
             </div>
