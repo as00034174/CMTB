@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { history } from '../helpers/history'
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 class Header extends React.Component {
     constructor(props) {
@@ -13,13 +14,19 @@ class Header extends React.Component {
             notices: [],
             messages: [],
             searchKey: '',
+            modal: false
 
         },
             this.handleSubmit = this.handleSubmit.bind(this),
-            this.handleChange = this.handleChange.bind(this)
+            this.handleChange = this.handleChange.bind(this),
+            this.toggle = this.toggle.bind(this);
     }
 
-
+    toggle() {
+        this.setState({
+            modal: !this.state.modal
+        });
+    }
     handleChange(event) {
         this.setState({ [event.target.name]: event.target.value })
     }
@@ -44,7 +51,7 @@ class Header extends React.Component {
         script2.src = 'assets/js/main.js';
         script2.async = true;
         document.body.appendChild(script2);
-    
+
         const script3 = document.createElement("script");
         script3.src = 'assets/js/bootstrap.min.js';
         script3.async = true;
@@ -66,15 +73,16 @@ class Header extends React.Component {
                         <div className="section__content section__content--p30">
                             <div className="container-fluid">
                                 <div className="header-wrap">
-                                    <form className="form-header" action="" method="POST">
+                                    <div className="form-header" >
                                         <input className="au-input au-input--xl" type="text" value={this.state.searchKey} name="search" placeholder="Search for datas &amp; reports..." />
-                                        <button className="au-btn--submit" type="submit">
+                                        <button className="au-btn--submit" type="submit"onClick={this.toggle}
+                                            data-toggle="modal" data-target="#myModal">>
                                             <i className="zmdi zmdi-search"></i>
                                         </button>
-                                    </form>
+                                    </div>
                                     <div className="header-button">
-                                        <div className="noti-wrap">
-                                            <div className="noti__item js-item-menu">
+                                        <div className="noti-wrap" onClick={this.toggle}>
+                                            <div className="noti__item" onClick={this.toggle}>
                                                 <i className="zmdi zmdi-comment-more"></i>
                                                 <span className="quantity">1</span>
                                                 <div className="mess-dropdown js-dropdown">
@@ -106,7 +114,7 @@ class Header extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div className="noti__item js-item-menu">
+                                            <div className="noti__item" onClick={this.toggle}>
                                                 <i className="zmdi zmdi-email"></i>
                                                 <span className="quantity">1</span>
                                                 <div className="email-dropdown js-dropdown">
@@ -189,7 +197,7 @@ class Header extends React.Component {
                                             <div className="account-item clearfix js-item-menu">
                                                 <div className="header-user-option">
                                                     <div className="image-top-show">
-                                                        <img src="/assets/images/icon/avatar-01.jpg" alt="Nam Tran" />
+                                                        <img src="/assets/images/noimage.png" alt="Nam Tran" />
                                                     </div>
                                                     <div className="content">
                                                         <a className="js-acc-btn" href="/">{fullName}</a>
@@ -199,7 +207,7 @@ class Header extends React.Component {
                                                     <div className="info clearfix">
                                                         <div className="image">
                                                             <a href="/">
-                                                                <img src="/assets/images/icon/avatar-01.jpg" alt="Nam Tran" />
+                                                                <img src="/assets/images/noimage.png" alt="Nam Tran" />
                                                             </a>
                                                         </div>
                                                         <div className="content">
@@ -233,6 +241,15 @@ class Header extends React.Component {
                     </header>
 
                 </div>
+                <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+                    <ModalHeader toggle={this.toggle}>Notice</ModalHeader>
+                    <ModalBody>
+                    This function will be coming soon !!!
+                 </ModalBody>
+                    <ModalFooter>
+                        <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                    </ModalFooter>
+                </Modal>
             </div>
 
         )
