@@ -17,7 +17,6 @@ class FormAddNewItem extends React.Component {
             },
             address: '',
             degree: '',
-            desciption: '',
             selectedFile: null,
             fileName: '',
         },
@@ -43,8 +42,11 @@ class FormAddNewItem extends React.Component {
                     this.setState({ selectedFile: e.target.result });
                 }
                 this.setState({ fileName: files[0].name });
+                
             default:
                 this.setState({ [event.target.name]: event.target.value });
+                this.state.relationship.fatherName = this.state.fatherName;
+                this.state.relationship.motherName = this.state.motherName;
         }
     }
 

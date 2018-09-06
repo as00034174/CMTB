@@ -2,17 +2,26 @@ const crypto = require('crypto')
 const assert = require('assert')
 const CitizenDetail = require("../models/CitizenDetail")
 
-const Block = {
+const BlockMethod = {
     calculateHash,
     generateNextBlock,
     getAllBlock,
     getLatestBlock
 };
 
+const Block = {
+    index: 0,
+    timeStap: 0,
+    previousHash:  0,
+    hash: 0,
+    blockData: 0
+    
+}
+
 function calculateHash() {
-    const { hash, ...data } = this
+    const { hash, ...blockData } = this
     return crypto
-        .createHmac('sha256', JSON.stringify(data))
+        .createHmac('sha256', blockData.toString())
         .digest('hex')
 };
 
@@ -24,13 +33,15 @@ function getGenesisBlock() {
 };
 
 
-function generateNextBlock(blockData) {
-    var previousBlock = getLatestBlock();
-    console.log(previousBlock);
-    var nextIndex = previousBlock.index + 1;
-    var nextTimestamp = new Date();
-    var nextHash = calculateHash(nextIndex, previousBlock.hash, nextTimestamp, blockData);
-    return new Block(nextIndex, previousBlock.hash, nextTimestamp, blockData, nextHash);
+async function generateNextBlock(blockData) {
+    const previousBlock = await getLatestBlock();
+    Block.index = previousBlock.index + 1;
+    Block.previousHash = previousBlock.hash;
+    Block.timeStap = new Date();
+    Block.blockData = blockData
+    console.log(blockData);
+    Block.hash = calculateHash(Block.index, Block.previousHash, Block.timeStap, Block.blockData);
+    return Block;
 };
 
 async function getLatestBlock() {
@@ -141,4 +152,4 @@ function isValidChain(blockchainToValidate) {
     return true;
 };
 
-module.exports = Block;
+module.exports = BlockMethod;

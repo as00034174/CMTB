@@ -1,7 +1,7 @@
 const CitizenDetail = require("../models/CitizenDetail")
 const Block = require("../controllers/BlockMethod.ctrl")
 module.exports = {
-    addCitizenDetail: (req, res, next) => {
+    addCitizenDetail: async (req, res, next) => {
         // let initItem = {
         //     index: 1,
         //     timestamp: Date.now(),
@@ -20,7 +20,7 @@ module.exports = {
         //         degree: "Undergraduate"
         //     }
         // }
-        const newBlock = Block.generateNextBlock(req.body);
+        const newBlock = await Block.generateNextBlock(req.body);
         new CitizenDetail(newBlock).save((err, result) => {
             if (err) throw err;
             else

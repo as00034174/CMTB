@@ -2,20 +2,21 @@ const mongoose = require('mongoose')
 
 let CitizenDetail = new mongoose.Schema({
     index: Number,
-    timestamp: {type: Date, default: Date.now },
+    timeStamp: {type: Date, default: Date.now },
     previousHash: String,
     hash: String,
-    data: {
-        idcard: { type: Number, required: true },
+    blockData: {
+        idCard: { type: Number, required: true },
         fullName: { type: String, required: true },
-        dateofBirth: { type: String, required: true },
+        birthDate: { type: String, required: true },
         gender: String,
         relationShip: {
             fatherName: String,
             motherName: String
         },
         address: String,
-        degree: [{ type: String }]
+        degree: [{ type: String }],
+        fileName:[{type: String}]
     },
 })
 
