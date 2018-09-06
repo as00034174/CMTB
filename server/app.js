@@ -22,7 +22,8 @@ try {
 let port = 5000 || process.env.PORT
 routers(router)
 app.use(cors())
-app.use(bodyParser.json())
+app.use(bodyParser.json({limit: '10mb', extended: true}))
+app.use(bodyParser.urlencoded({limit: '10mb', extended: true}))
 app.use('/api', router)
 app.use(fileupload);
 

@@ -9,12 +9,26 @@ export const itemService = {
 const url = 'http://localhost:5000/api';
 
 function addNewItem(item) {
+    const citizenItem = {
+        idCard: item.idCard,
+            fullName: item.fullName,
+            birthDate: item.birthDate,
+            gender: item.gender,
+            relationship: {
+                fatherName: item.relationship.fatherName,
+                motherName: item.relationship.motherName
+            },
+            address: item.address,
+            degree: item.degree,
+            desciption: item.desciption,
+            fileName: item.fileName,
+    } 
     const requestOptions = {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify(item)
+        body: JSON.stringify(citizenItem)
     };
     return fetch(`${url}/addNewDetail`, requestOptions)
         .then(handelRespone);

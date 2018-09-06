@@ -56,6 +56,6 @@ module.exports = {
                 res.send(400);
             else
                 res.send(result);
-        });
+        })
     }
 }

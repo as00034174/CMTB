@@ -23,7 +23,7 @@ function addNewItem(state) {
                 }
                 else
                     dispatch(failure('Add item have been failed'));
-                dispatch(alertActions.error('ADD ITEM FAILURE'));
+                    dispatch(alertActions.error('ADD ITEM FAILURE'));
             })
     };
     function success(user) {

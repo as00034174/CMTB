@@ -1,5 +1,5 @@
 import React from 'react'
-// import { itemAction } from '../actions/item.acion';
+import { itemAction } from '../actions/item.acion';
 import { connect } from 'react-redux';
 // import { itemService } from '../services/item.service';
 
@@ -51,8 +51,8 @@ class FormAddNewItem extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        // const { dispatch } = this.props;
-        // dispatch(itemAction.addNewItem(this.state));
+        const { dispatch } = this.props;
+        dispatch(itemAction.addNewItem(this.state));
         const url = "http://localhost:5000/api/uploadFile";
         fetch(url, {
             method: "post",
