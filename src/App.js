@@ -7,6 +7,7 @@ import { HomePage } from './HomePage'
 import { PrivateRoute } from './PrivateRoute'
 import { RegistrationPage } from './RegistrationPage'
 import { AddNewCitizenDetailPage } from './AddNewCitizenDetailPage'
+import { CitizenDetailItemsPage } from './CitizenDetailItemsPage'
 
 class App extends Component {
   constructor(props) {
@@ -27,6 +28,7 @@ class App extends Component {
             <Route path="/login" component={LoginPage} />
             <Route path="/registration" component={RegistrationPage} />
             <Route path="/admin" component={AddNewCitizenDetailPage} />
+            <Route path="/items" component={CitizenDetailItemsPage} />
           </div>
         </Router>
       </div>
